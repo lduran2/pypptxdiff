@@ -5,7 +5,7 @@ r'''
 
  By        : Leomar Durán <https://github.com/lduran2/>
  When      : 2022-01-14t15:02
- Version   : 1.5.0
+ Version   : 1.5.1
  '''
 
 from collections import OrderedDict # to preserve order
@@ -49,6 +49,13 @@ def asdict(obj):
 
     # INDUCTIVE STEP:
     # if a Python object:
-    # process the dictionary of the object
-    return asdict(obj.__dict__)
+    try:
+        # process the dictionary of the object
+        return asdict(obj.__dict__)
+    # end try obj.__dict__
+    # if type error, then obj does not support __dict__:
+    except TypeError:
+        # so return the object itself
+        return obj
+    # end except TypeError
 # end def asdict(obj)
