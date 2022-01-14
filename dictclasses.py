@@ -8,6 +8,9 @@ r'''
  Version   : 1.0.0
 
  CHANGELOG :
+    v0.0.0 - 2022-01-14t14:05
+        shallow copy implementation
+
     v0.0.0 - 2022-01-14t13:50
         stub implementation
  '''
@@ -15,6 +18,11 @@ r'''
 def asdict(obj):
     r'''
      Converts an object to a dictionary
+     @param obj : object = to convert
+     @minver 0.0.0
+     @return a dictionary representation of the given object
      '''
-    result = {}
+    # initialize to the dictionary of the object
+    result = obj.__dict__
     return result
+# end def asdict(obj)
