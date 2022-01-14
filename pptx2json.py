@@ -4,10 +4,13 @@ r'''
  Converts a PowerPoint presentation to JSON.
 
  By        : Leomar Durán <https://github.com/lduran2/>
- When      : 2021-12-31t01:58
- Version   : 0.0.0
+ When      : 2021-12-31t02:53
+ Version   : 0.1.0
 
  CHANGELOG :
+     v0.1.0 - 2021-12-31t02:53
+         loop through filenames
+
      v0.0.0 - 2021-12-31t01:58
          hello world implementation
  '''
@@ -15,7 +18,10 @@ r'''
 from sys import argv
 
 def main(argv):
-    print("Hello world!")
+    # loop through arguments
+    for filename in argv[1:]:
+        print(filename)
+    # next filename in argv[1:]
 # end def main()
 
 # if main module
