@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 r'''
  Canonical : https://github.com/lduran2/pypptxdiff/blob/master/pptx2json.py
- Converts a PowerPoint presentation to JSON.
+ Converts PowerPoint presentations to JSON.
 
  By        : Leomar Durán <https://github.com/lduran2/>
  When      : 2022-01-14t13:17
