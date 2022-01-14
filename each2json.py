@@ -7,6 +7,7 @@ r'''
  Version   : 1.1.0
  '''
 
+# to convert to dictionary between file and JSON
 from dictclasses import asdict
 
 def jsoneach(filenames, openfunc):

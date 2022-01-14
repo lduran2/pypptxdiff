@@ -1,4 +1,6 @@
 v1.3.1 
+    2022-01-14t15:02 /dictclasses.py :
+        preserving array order
     2022-01-14t14:43 /dictclasses.py :
         handling arrays
 
