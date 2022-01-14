@@ -1,6 +1,12 @@
-v1.3.1 
+v1.5.0
+    2022-01-14t15:08 /dictclasses.py :
+        recursively handles Python objects
+
+v1.4.1
     2022-01-14t15:02 /dictclasses.py :
-        preserving array order
+        handles JSON objects, preserving insertion order
+
+v1.3.1
     2022-01-14t14:43 /dictclasses.py :
         handling arrays
 

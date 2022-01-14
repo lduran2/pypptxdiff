@@ -5,7 +5,7 @@ r'''
 
  By        : Leomar Durán <https://github.com/lduran2/>
  When      : 2022-01-14t15:02
- Version   : 1.3.1
+ Version   : 1.5.0
  '''
 
 from collections import OrderedDict # to preserve order
@@ -24,6 +24,8 @@ def asdict(obj):
      @minver 0.0.0
      @return a dictionary representation of the given object
      '''
+    # BASE CASE:
+
     # if a primitive, return it
     if (isinstance(obj, JSON_PRIMITIVES)):
         return obj
@@ -34,10 +36,10 @@ def asdict(obj):
         return [ asdict(elem) for elem in obj ]
     # end if (isinstance(obj, JSON_ARRAYS))
 
-    # if an object
+    # if a JSON object:
     if (isinstance(obj, JSON_OBJECTS)):
         # convert each value
-        converted = { key : asdict(value)
+        converted = { key: asdict(value)
                       for (key, value) in obj.items() }
         # preserves order of insertion
         ordered = OrderedDict(converted)
@@ -45,8 +47,8 @@ def asdict(obj):
         return ordered
     # end if (isinstance(obj, JSON_OBJECTS))
 
-    # initialize to the dictionary of the object
-    result = obj.__dict__
-    # replace each object with a 
-    return result
+    # INDUCTIVE STEP:
+    # if a Python object:
+    # process the dictionary of the object
+    return asdict(obj.__dict__)
 # end def asdict(obj)
