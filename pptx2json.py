@@ -5,24 +5,27 @@ r'''
 
  By        : Leomar Durán <https://github.com/lduran2/>
  When      : 2021-12-31t02:53
- Version   : 0.1.0
+ Version   : 1.0.0
 
  CHANGELOG :
-     v0.1.0 - 2021-12-31t02:53
-         loop through filenames
+    v1.0.0 - 2022-01-14t12:59
+        abstracted `each2json.py`
+        opening each file
 
-     v0.0.0 - 2021-12-31t01:58
-         hello world implementation
+    v0.1.0 - 2021-12-31t02:53
+        loop through filenames
+
+    v0.0.0 - 2021-12-31t01:58
+        hello world implementation
  '''
 
 from sys import argv
+from each2json import jsoneach
+from pptx import Presentation
 
 def main(argv):
-    # loop through arguments
-    for filename in argv[1:]:
-        print(filename)
-    # next filename in argv[1:]
-# end def main()
+    jsoneach(argv[1:], Presentation)
+# end def main(argv)
 
 # if main module
 if (__name__ == "__main__"):
