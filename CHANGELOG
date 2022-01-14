@@ -1,0 +1,33 @@
+v1.2.1 
+    2022-01-14t14:36 /dictclasses.py :
+        handling primitives
+
+v1.2.0
+    2022-01-14t14:05 /dictclasses.py :
+        shallow copy implementation
+
+v1.1.0 
+    2022-01-14t13:54 /each2json.py :
+        converting to `dict`
+    2022-01-14t13:50 /dictclasses.py :
+        stub implementation
+
+v1.0.1
+    2022-01-14t13:17 /pptx2json.py :
+    2022-01-14t13:17 /each2json.py :
+        added documentation
+
+v1.0.0
+    2022-01-14t12:59 /pptx2json.py :
+        abstracted `each2json.py`
+    2022-01-14t12:53 /each2json.py :
+        abstracted from `pptx2json.py`
+        opening each file
+
+v0.1.0
+    2021-12-31t02:53 /pptx2json.py :
+        loop through filenames
+
+v0.0.0
+    2021-12-31t01:58 /pptx2json.py :
+        hello world implementation
