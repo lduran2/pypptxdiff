@@ -1,3 +1,11 @@
+v1.5.2-a
+    2022-01-14t20:03 /dictclasses.py :
+        handles Booleans and `null`
+    2022-01-14t20:09 /dictclasses.py :
+        stringify object keys
+    2022-01-14t20:17 /dictclasses.py :
+        only get the dictionary in the try block
+
 v1.5.1-a
     2022-01-14t15:08 /dictclasses.py :
         handling TypeError by catching

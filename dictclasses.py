@@ -5,13 +5,13 @@ r'''
 
  By        : Leomar Durán <https://github.com/lduran2/>
  When      : 2022-01-14t15:02
- Version   : 1.5.1
+ Version   : 1.5.2-a
  '''
 
 from collections import OrderedDict # to preserve order
 
 # primitive types in valid JSON
-JSON_PRIMITIVES = ( int, float, str )
+JSON_PRIMITIVES = ( str, int, float, bool )
 # represent JSON arrays
 JSON_ARRAYS = ( list, tuple )
 # represent JSON objects
@@ -26,6 +26,11 @@ def asdict(obj):
      '''
     # BASE CASE:
 
+    # if `null`, then return `None`
+    if (not(obj)):
+        return None
+    # if (not(obj))
+
     # if a primitive, return it
     if (isinstance(obj, JSON_PRIMITIVES)):
         return obj
@@ -39,7 +44,8 @@ def asdict(obj):
     # if a JSON object:
     if (isinstance(obj, JSON_OBJECTS)):
         # convert each value
-        converted = { key: asdict(value)
+        # stringify each key
+        converted = { str(key): asdict(value)
                       for (key, value) in obj.items() }
         # preserves order of insertion
         ordered = OrderedDict(converted)
@@ -50,12 +56,14 @@ def asdict(obj):
     # INDUCTIVE STEP:
     # if a Python object:
     try:
-        # process the dictionary of the object
-        return asdict(obj.__dict__)
+        # get the dictionary of the object
+        obj_dict = obj.__dict__
     # end try obj.__dict__
     # if type error, then obj does not support __dict__:
     except TypeError:
         # so return the object itself
         return obj
+    # recursively process the dictionary
+    return asdict(obj_dict)
     # end except TypeError
 # end def asdict(obj)
