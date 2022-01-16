@@ -1,3 +1,8 @@
+v1.5.4-alpha
+    2022-01-15t03:40 /dictclasses.py :
+        better indenting comprehensions
+        `bytes` -> array
+
 v1.5.3-alpha
     2022-01-15t22:57 /dictclasses.py :
         using `dir` to iterate objects

@@ -4,17 +4,17 @@ r'''
  classes.
 
  By        : Leomar Durán <https://github.com/lduran2/>
- When      : 2022-01-15t22:57
- Version   : 1.5.3-alpha
+ When      : 2022-01-15t03:40
+ Version   : 1.5.4-alpha
  '''
 
 from collections import OrderedDict # to preserve order
 from inspect import ismethod
 
 # primitive types in valid JSON
-JSON_PRIMITIVES = ( str, int, bytes, float, bool )
+JSON_PRIMITIVES = ( str, int, float, bool )
 # represent JSON arrays
-JSON_ARRAYS = ( list, tuple )
+JSON_ARRAYS = ( list, tuple, bytes )
 # represent JSON objects
 JSON_OBJECTS = ( dict, )
 
@@ -56,8 +56,10 @@ def asdict(obj, visited=[]):
     if (isinstance(obj, JSON_OBJECTS)):
         # convert each value
         # stringify each key
-        converted = { str(key): asdict(value, visited)
-                      for (key, value) in obj.items()  }
+        converted = {
+            str(key): asdict(value, visited)
+            for (key, value) in obj.items()
+        }
         # preserves order of insertion
         ordered = OrderedDict(converted)
         # return the result
@@ -76,21 +78,30 @@ def asdict(obj, visited=[]):
         # so return the object itself
         return None
     # get the public fields of the object
-    obj_fields = { name: attr
-                   for (name, attr) in
-                   ( (name, getattr(obj, name))
-                     for name in obj_attr_names
-                     if (
-                        # double checking attributes
-                        hasattr(obj, name)
-                        # ignoring private attributes
-                        and not(name.startswith(r'_'))
-                     )
-                   )
-                   # and ignoring function
-                   if (not(callable(attr)))
-                 }
+    obj_fields = {
+        name: attr
+        # generating attribute names and values
+        for (name, attr) in (
+            (name, getattr(obj, name))
+            # looping through attribute names
+            for name in obj_attr_names
+            if (
+                # keeping only attributes that exist
+                hasattr(obj, name)
+                # and are public
+                and not(name.startswith(r'_'))
+            ) # end if
+        ) # end (name, attr) in
+        # keep only attributes that are not functions
+        if (not(callable(attr)))
+    } # end obj_fields
     # recursively process the dictionary
     return asdict(obj_fields, visited)
     # end except TypeError
 # end def asdict(obj)
+
+# # References
+# 1: [@Santhosh]. (2019). python : object.__dict__ not showing all
+#   attributes. Retrieved from <https://stackoverflow.com/q/57576522>
+# 2: [@Eric Wilson]. (2014). How to list all fields of a class (and no
+#   methods)?. Retrieved from <https://stackoverflow.com/q/21945067>
