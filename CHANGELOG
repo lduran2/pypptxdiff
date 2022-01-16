@@ -1,12 +1,14 @@
-v1.5.2-a
-    2022-01-14t20:03 /dictclasses.py :
-        handles Booleans and `null`
-    2022-01-14t20:09 /dictclasses.py :
-        stringify object keys
+v1.5.2-beta
+    2022-01-15t01:01 /dictclasses.py :
+        recording visited objects
     2022-01-14t20:17 /dictclasses.py :
         only get the dictionary in the try block
+    2022-01-14t20:09 /dictclasses.py :
+        stringify object keys
+    2022-01-14t20:03 /dictclasses.py :
+        handles Booleans and `null`
 
-v1.5.1-a
+v1.5.1-alpha
     2022-01-14t15:08 /dictclasses.py :
         handling TypeError by catching
 

@@ -4,20 +4,20 @@ r'''
  classes.
 
  By        : Leomar Durán <https://github.com/lduran2/>
- When      : 2022-01-14t15:02
- Version   : 1.5.2-a
+ When      : 2022-01-14t20:17
+ Version   : 1.5.2-beta
  '''
 
 from collections import OrderedDict # to preserve order
 
 # primitive types in valid JSON
-JSON_PRIMITIVES = ( str, int, float, bool )
+JSON_PRIMITIVES = ( str, int, bytes, float, bool )
 # represent JSON arrays
 JSON_ARRAYS = ( list, tuple )
 # represent JSON objects
 JSON_OBJECTS = ( dict, )
 
-def asdict(obj):
+def asdict(obj, visited=[]):
     r'''
      Converts an object to a dictionary.
      @param obj : object = to convert
@@ -25,9 +25,14 @@ def asdict(obj):
      @return a dictionary representation of the given object
      '''
     # BASE CASE:
+    try:
+        if (obj in visited):
+            return None
+    except KeyError:
+        return None
 
     # if `null`, then return `None`
-    if (not(obj)):
+    if (obj is None):
         return None
     # if (not(obj))
 
@@ -36,16 +41,21 @@ def asdict(obj):
         return obj
     # end if (isinstance(obj, JSON_PRIMITIVES))
 
+    # INDUCTIVE STEP:
+
+    # record visited
+    visited.append(obj)
+
     # if an array, convert each element
     if (isinstance(obj, JSON_ARRAYS)):
-        return [ asdict(elem) for elem in obj ]
+        return [ asdict(elem, visited) for elem in obj ]
     # end if (isinstance(obj, JSON_ARRAYS))
 
     # if a JSON object:
     if (isinstance(obj, JSON_OBJECTS)):
         # convert each value
         # stringify each key
-        converted = { str(key): asdict(value)
+        converted = { str(key): asdict(value, visited)
                       for (key, value) in obj.items() }
         # preserves order of insertion
         ordered = OrderedDict(converted)
@@ -53,7 +63,6 @@ def asdict(obj):
         return ordered
     # end if (isinstance(obj, JSON_OBJECTS))
 
-    # INDUCTIVE STEP:
     # if a Python object:
     try:
         # get the dictionary of the object
@@ -62,8 +71,8 @@ def asdict(obj):
     # if type error, then obj does not support __dict__:
     except TypeError:
         # so return the object itself
-        return obj
+        return None
     # recursively process the dictionary
-    return asdict(obj_dict)
+    return asdict(obj_dict, visited)
     # end except TypeError
 # end def asdict(obj)
