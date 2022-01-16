@@ -1,4 +1,8 @@
-v1.5.2-beta
+v1.5.3-alpha
+    2022-01-15t22:57 /dictclasses.py :
+        using `dir` to iterate objects
+
+v1.5.2-alpha
     2022-01-15t01:01 /dictclasses.py :
         recording visited objects
     2022-01-14t20:17 /dictclasses.py :
