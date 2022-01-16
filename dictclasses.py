@@ -4,8 +4,8 @@ r'''
  classes.
 
  By        : Leomar Durán <https://github.com/lduran2/>
- When      : 2022-01-15t03:40
- Version   : 1.5.4-alpha
+ When      : 2022-01-15t03:56
+ Version   : 1.6.0
  '''
 
 from collections import OrderedDict # to preserve order
@@ -20,17 +20,22 @@ JSON_OBJECTS = ( dict, )
 
 def asdict(obj, visited=[]):
     r'''
-     Converts an object to a dictionary.
+     Converts an `obj`ect to a dictionary.
      @param obj : object = to convert
      @minver 0.0.0
      @return a dictionary representation of the given object
      '''
     # BASE CASE:
+    # if this object was already visited, return to last level
     try:
         if (obj in visited):
             return None
+    # end try (obj in visited)
+    # if there was an error searching
     except KeyError:
+        # return to last level
         return None
+    # end except KeyError
 
     # if `null`, then return `None`
     if (obj is None):
@@ -77,6 +82,8 @@ def asdict(obj, visited=[]):
     except TypeError:
         # so return the object itself
         return None
+    # end except TypeError
+
     # get the public fields of the object
     obj_fields = {
         name: attr
@@ -87,7 +94,7 @@ def asdict(obj, visited=[]):
             for name in obj_attr_names
             if (
                 # keeping only attributes that exist
-                hasattr(obj, name)
+                typesafe_hasattr(obj, name)
                 # and are public
                 and not(name.startswith(r'_'))
             ) # end if
@@ -99,6 +106,24 @@ def asdict(obj, visited=[]):
     return asdict(obj_fields, visited)
     # end except TypeError
 # end def asdict(obj)
+
+def typesafe_hasattr(obj, name):
+    r'''
+     Checks whether the `name` is an attribute of the `obj`ect,
+     returning false on a `TypeError`.
+     @param obj : object = to check for the attribute
+     @param name : str = name of the attribute for which to check `obj`
+     @return `True` if the `name` is an attribute of the `obj`ect and
+        checking does not cause a TypeError; `False` otherwise.
+     '''
+    # try checking the attribute
+    try:
+        found = hasattr(obj, name)
+    # end try hasattr(obj, name)
+    except TypeError:
+        found = False
+    return found
+# end def typesafe_hasattr(obj, name)
 
 # # References
 # 1: [@Santhosh]. (2019). python : object.__dict__ not showing all
