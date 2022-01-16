@@ -5,16 +5,16 @@ r'''
 
  By        : Leomar Durán <https://github.com/lduran2/>
  When      : 2022-01-15t03:56
- Version   : 1.6.0
+ Version   : 1.7.0
  '''
 
 from collections import OrderedDict # to preserve order
-from inspect import ismethod
 
+JSON_STRINGS = ( str, bytes )
 # primitive types in valid JSON
-JSON_PRIMITIVES = ( str, int, float, bool )
+JSON_NUMBERS = ( int, float, bool )
 # represent JSON arrays
-JSON_ARRAYS = ( list, tuple, bytes )
+JSON_ARRAYS = ( list, tuple )
 # represent JSON objects
 JSON_OBJECTS = ( dict, )
 
@@ -30,6 +30,7 @@ def asdict(obj, visited=[]):
     try:
         if (obj in visited):
             return None
+        # end if (obj in visited)
     # end try (obj in visited)
     # if there was an error searching
     except KeyError:
@@ -40,12 +41,17 @@ def asdict(obj, visited=[]):
     # if `null`, then return `None`
     if (obj is None):
         return None
-    # if (not(obj))
+    # end if (not(obj))
 
-    # if a primitive, return it
-    if (isinstance(obj, JSON_PRIMITIVES)):
+    # if a string, make sure it's stringified
+    if (isinstance(obj, JSON_STRINGS)):
+        return str(obj)
+    # end if (isinstance(obj, JSON_STRINGS))
+
+    # if a number, return it
+    if (isinstance(obj, JSON_NUMBERS)):
         return obj
-    # end if (isinstance(obj, JSON_PRIMITIVES))
+    # end if (isinstance(obj, JSON_NUMBERS))
 
     # INDUCTIVE STEP:
 
@@ -72,8 +78,6 @@ def asdict(obj, visited=[]):
     # end if (isinstance(obj, JSON_OBJECTS))
 
     # otherwise, if a Python object:
-    
-    # if a Python object:
     try:
         # get the names of the attributes of the object
         obj_attr_names = dir(obj)

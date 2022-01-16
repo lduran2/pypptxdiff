@@ -1,3 +1,9 @@
+v1.7.0
+    2022-01-15t04:09 /each2json.py :
+        printing `dict` as JSON
+    2022-01-15t04:04 /dictclasses.py :
+        handling bytes as strings
+
 v1.6.0
     2022-01-15t03:56 /dictclasses.py :
         traversed entire presentation

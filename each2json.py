@@ -4,9 +4,10 @@ r'''
 
  By        : Leomar Durán <https://github.com/lduran2/>
  When      : 2022-01-14t13:54
- Version   : 1.1.0
+ Version   : 1.7.0
  '''
 
+import json
 # to convert to dictionary between file and JSON
 from dictclasses import asdict
 
@@ -26,8 +27,8 @@ def jsoneach(filenames, openfunc):
         # convert to dictionary
         a_dict = asdict(file)
         # convert to JSON
-        json = a_dict
+        a_json = json.dumps(a_dict, sort_keys=True, indent=4)
         # print the result
-        print(json)
+        print(a_json)
     # next filename in filenames
 # end def jsoneach(filenames, openfunc)
