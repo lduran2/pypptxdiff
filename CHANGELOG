@@ -1,0 +1,78 @@
+v1.7.0
+    2022-01-15t04:09 /each2json.py :
+        printing `dict` as JSON
+    2022-01-15t04:04 /dictclasses.py :
+        handling bytes as strings
+
+v1.6.0
+    2022-01-15t03:56 /dictclasses.py :
+        traversed entire presentation
+
+v1.5.4-alpha
+    2022-01-15t03:40 /dictclasses.py :
+        better indenting comprehensions
+        `bytes` -> array
+
+v1.5.3-alpha
+    2022-01-15t22:57 /dictclasses.py :
+        using `dir` to iterate objects
+
+v1.5.2-alpha
+    2022-01-15t01:01 /dictclasses.py :
+        recording visited objects
+    2022-01-14t20:17 /dictclasses.py :
+        only get the dictionary in the try block
+    2022-01-14t20:09 /dictclasses.py :
+        stringify object keys
+    2022-01-14t20:03 /dictclasses.py :
+        handles Booleans and `null`
+
+v1.5.1-alpha
+    2022-01-14t15:08 /dictclasses.py :
+        handling TypeError by catching
+
+v1.5.0
+    2022-01-14t15:08 /dictclasses.py :
+        recursively handles Python objects
+
+v1.4.1
+    2022-01-14t15:02 /dictclasses.py :
+        handles JSON objects, preserving insertion order
+
+v1.3.1
+    2022-01-14t14:43 /dictclasses.py :
+        handling arrays
+
+v1.2.1 
+    2022-01-14t14:36 /dictclasses.py :
+        handling primitives
+
+v1.2.0
+    2022-01-14t14:05 /dictclasses.py :
+        shallow copy implementation
+
+v1.1.0 
+    2022-01-14t13:54 /each2json.py :
+        converting to `dict`
+    2022-01-14t13:50 /dictclasses.py :
+        stub implementation
+
+v1.0.1
+    2022-01-14t13:17 /pptx2json.py :
+    2022-01-14t13:17 /each2json.py :
+        added documentation
+
+v1.0.0
+    2022-01-14t12:59 /pptx2json.py :
+        abstracted `each2json.py`
+    2022-01-14t12:53 /each2json.py :
+        abstracted from `pptx2json.py`
+        opening each file
+
+v0.1.0
+    2021-12-31t02:53 /pptx2json.py :
+        loop through filenames
+
+v0.0.0
+    2021-12-31t01:58 /pptx2json.py :
+        hello world implementation
