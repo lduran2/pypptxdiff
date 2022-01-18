@@ -1,5 +1,8 @@
 # test presentation
 *.pptx
 
+# JSON output
+*.json
+
 # Python cached binaries
 __pycache__/

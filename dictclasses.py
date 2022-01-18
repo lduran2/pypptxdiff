@@ -4,8 +4,8 @@ r'''
  classes.
 
  By        : Leomar Durán <https://github.com/lduran2/>
- When      : 2022-01-15t04:04
- Version   : 1.7.0
+ When      : 2022-01-18t00:12
+ Version   : 1.7.2-alpha
  '''
 
 from collections import OrderedDict # to preserve order
@@ -18,7 +18,7 @@ JSON_ARRAYS = ( list, tuple )
 # represent JSON objects
 JSON_OBJECTS = ( dict, )
 
-def asdict(obj, visited=[], tracename=""):
+def asdict(obj, ancestors=[], tracename=""):
     r'''
      Converts an `obj`ect to a dictionary.
      @param obj : object = to convert
@@ -26,18 +26,21 @@ def asdict(obj, visited=[], tracename=""):
      @return a dictionary representation of the given object
      '''
     # BASE CASE:
-    # if this object was already visited, return to last level
+    # if this object is its own ancestor, return a string copy
     print(tracename)
     try:
-        if (obj in visited):
-            return None
-        # end if (obj in visited)
-    # end try (obj in visited)
+        if (obj in ancestors):
+            return str(obj)
+        # end if (obj in ancestors)
+    # end try (obj in ancestors)
     # if there was an error searching
     except KeyError:
-        # return to last level
-        return None
+        # return the string copy
+        return str(obj)
     # end except KeyError
+
+    # record in ancestors
+    ancestors += [obj]
 
     # if `null`, then return `None`
     if (obj is None):
@@ -56,9 +59,6 @@ def asdict(obj, visited=[], tracename=""):
 
     # INDUCTIVE STEP:
 
-    # record visited
-    visited.append(obj)
-
     # if has iterable items:
     if (hasattr(obj, r'items')):
         items = obj.items()
@@ -66,7 +66,8 @@ def asdict(obj, visited=[], tracename=""):
             # convert each value
             # stringify each key
             converted = {
-                str(key): asdict(value, visited, tracename + '[' + str(key) + ']')
+                str(key): asdict(value, ancestors,
+                                 tracename + '[' + str(key) + ']')
                 for (key, value) in items
             }
             # no need to preserve order, json.dumps sorts
@@ -78,7 +79,10 @@ def asdict(obj, visited=[], tracename=""):
     # if is iterable:
     if (hasattr(obj, r'__iter__')):
         # convert each element
-        return [ asdict(elem, visited, tracename + '[' + str(index) + ']') for index, elem in enumerate(obj) ]
+        return [
+            asdict(elem, ancestors, tracename + '[' + str(index) + ']')
+            for index, elem in enumerate(obj)
+        ]
     # end if (isinstance(obj, JSON_ARRAYS))
 
     # otherwise, if a Python object:
@@ -111,7 +115,7 @@ def asdict(obj, visited=[], tracename=""):
         if (not(callable(attr)))
     } # end obj_fields
     # recursively process the dictionary
-    return asdict(obj_fields, visited, tracename)
+    return asdict(obj_fields, ancestors, tracename)
     # end except TypeError
 # end def asdict(obj)
 

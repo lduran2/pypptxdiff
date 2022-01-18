@@ -1,3 +1,7 @@
+v1.7.2-alpha
+    2021-01-18t00:12 /dictclasses.py :
+        tracing ancestors, rather than visits
+
 v1.7.1-alpha
     2021-01-17t02:00 /dictclasses.py :
         tracing down the tree for debugging
