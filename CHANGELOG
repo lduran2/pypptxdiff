@@ -1,15 +1,21 @@
+v1.7.1-alpha
+    2021-01-17t02:00 /dictclasses.py :
+        tracing down the tree for debugging
+    2021-01-16t23:00 /dictclasses.py :
+        using items, __iter__ to class objects, arrays
+
 v1.7.0
-    2022-01-15t04:09 /each2json.py :
+    2022-01-16t04:09 /each2json.py :
         printing `dict` as JSON
-    2022-01-15t04:04 /dictclasses.py :
+    2022-01-16t04:04 /dictclasses.py :
         handling bytes as strings
 
 v1.6.0
-    2022-01-15t03:56 /dictclasses.py :
+    2022-01-16t03:56 /dictclasses.py :
         traversed entire presentation
 
 v1.5.4-alpha
-    2022-01-15t03:40 /dictclasses.py :
+    2022-01-16t03:40 /dictclasses.py :
         better indenting comprehensions
         `bytes` -> array
 

@@ -3,7 +3,7 @@ r'''
  Converts files to JSON.
 
  By        : Leomar Durán <https://github.com/lduran2/>
- When      : 2022-01-14t13:54
+ When      : 2022-01-16t04:09
  Version   : 1.7.0
  '''
 

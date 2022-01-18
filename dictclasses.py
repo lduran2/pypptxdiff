@@ -4,7 +4,7 @@ r'''
  classes.
 
  By        : Leomar Durán <https://github.com/lduran2/>
- When      : 2022-01-15t03:56
+ When      : 2022-01-15t04:04
  Version   : 1.7.0
  '''
 
@@ -18,7 +18,7 @@ JSON_ARRAYS = ( list, tuple )
 # represent JSON objects
 JSON_OBJECTS = ( dict, )
 
-def asdict(obj, visited=[]):
+def asdict(obj, visited=[], tracename=""):
     r'''
      Converts an `obj`ect to a dictionary.
      @param obj : object = to convert
@@ -27,6 +27,7 @@ def asdict(obj, visited=[]):
      '''
     # BASE CASE:
     # if this object was already visited, return to last level
+    print(tracename)
     try:
         if (obj in visited):
             return None
@@ -58,24 +59,27 @@ def asdict(obj, visited=[]):
     # record visited
     visited.append(obj)
 
-    # if an array, convert each element
-    if (isinstance(obj, JSON_ARRAYS)):
-        return [ asdict(elem, visited) for elem in obj ]
-    # end if (isinstance(obj, JSON_ARRAYS))
+    # if has iterable items:
+    if (hasattr(obj, r'items')):
+        items = obj.items()
+        if (hasattr(items, r'__iter__')):
+            # convert each value
+            # stringify each key
+            converted = {
+                str(key): asdict(value, visited, tracename + '[' + str(key) + ']')
+                for (key, value) in items
+            }
+            # no need to preserve order, json.dumps sorts
+            # return the result
+            return converted
+        # end if (hasattr(obj.items, r'__iter__'))
+    # end if (hasattr(obj, r'items')))
 
-    # if a JSON object:
-    if (isinstance(obj, JSON_OBJECTS)):
-        # convert each value
-        # stringify each key
-        converted = {
-            str(key): asdict(value, visited)
-            for (key, value) in obj.items()
-        }
-        # preserves order of insertion
-        ordered = OrderedDict(converted)
-        # return the result
-        return ordered
-    # end if (isinstance(obj, JSON_OBJECTS))
+    # if is iterable:
+    if (hasattr(obj, r'__iter__')):
+        # convert each element
+        return [ asdict(elem, visited, tracename + '[' + str(index) + ']') for index, elem in enumerate(obj) ]
+    # end if (isinstance(obj, JSON_ARRAYS))
 
     # otherwise, if a Python object:
     try:
@@ -107,7 +111,7 @@ def asdict(obj, visited=[]):
         if (not(callable(attr)))
     } # end obj_fields
     # recursively process the dictionary
-    return asdict(obj_fields, visited)
+    return asdict(obj_fields, visited, tracename)
     # end except TypeError
 # end def asdict(obj)
 
@@ -120,12 +124,15 @@ def typesafe_hasattr(obj, name):
      @return `True` if the `name` is an attribute of the `obj`ect and
         checking does not cause a TypeError; `False` otherwise.
      '''
+    found = False
     # try checking the attribute
     try:
         found = hasattr(obj, name)
     # end try hasattr(obj, name)
     except TypeError:
-        found = False
+        pass
+    except ValueError:
+        pass
     return found
 # end def typesafe_hasattr(obj, name)
 
